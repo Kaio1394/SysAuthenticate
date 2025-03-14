@@ -1,0 +1,10 @@
+app:
+  name: "SysAuthenticate"
+
+server:
+  host: "localhost"
+  port: 9092
+
+dataBase:
+  typeDatabase: "sqlite"
+  stringConnection: "SysAuthenticate.db"
