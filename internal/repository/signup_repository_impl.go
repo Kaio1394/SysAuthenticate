@@ -29,3 +29,19 @@ func (repo *SignupRepositoryImpl) GetUsers(ctx context.Context) ([]models.User, 
 func (repo *SignupRepositoryImpl) UpdateUser(ctx context.Context, user *models.User) error {
 	return repo.db.WithContext(ctx).Model(&user).Where("id = ?", user.Id).Updates(user).Error
 }
+
+func (repo *SignupRepositoryImpl) FindUserByUsername(ctx context.Context, username string) (models.User, error) {
+	var user models.User
+	if err := repo.db.WithContext(ctx).Where("username = ?", username).First(&user).Error; err != nil {
+		return user, err
+	}
+	return user, nil
+}
+
+func (repo *SignupRepositoryImpl) FindUserByEmail(ctx context.Context, email string) (models.User, error) {
+	var user models.User
+	if err := repo.db.WithContext(ctx).Where("email = ?", email).First(&user).Error; err != nil {
+		return user, err
+	}
+	return user, nil
+}
