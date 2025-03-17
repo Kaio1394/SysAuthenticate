@@ -11,6 +11,6 @@ import (
 func RegisterSignupRoutes(c *gin.Engine, db *gorm.DB) {
 	r := repository.NewSignupRepositoryImpl(db)
 	s := services.NewSignupServiceImpl(r)
-	h := handlers.NewSignupHandler(s)
+	h := handlers.NewSignupHandlerImpl(s)
 	c.POST("/signup", h.RegisterNewUser)
 }

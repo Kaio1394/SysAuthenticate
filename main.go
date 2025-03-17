@@ -16,6 +16,7 @@ func main() {
 	}
 	serv := gin.Default()
 	routes.RegisterSignupRoutes(serv, db)
+	routes.RegisterUserRoutes(serv, db)
 
 	_ = serv.Run(":8080")
 }

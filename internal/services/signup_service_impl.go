@@ -2,11 +2,9 @@ package services
 
 import (
 	"SysAuthenticate/internal/models"
-	"SysAuthenticate/internal/models/dtos/read"
 	"SysAuthenticate/internal/repository"
 	"context"
 	"errors"
-	"github.com/jinzhu/copier"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -44,14 +42,4 @@ func (s *SignupServiceImpl) RegisterNewUser(ctx context.Context, user *models.Us
 	user.Password = string(hashedPass)
 
 	return s.r.RegisterNewUser(ctx, user)
-}
-
-func (s *SignupServiceImpl) GetUsers(ctx context.Context) ([]read.UserReadDto, error) {
-	var usersDtos []read.UserReadDto
-	listUsers, err := s.r.GetUsers(ctx)
-	if err != nil {
-		return nil, err
-	}
-	_ = copier.CopyWithOption(&usersDtos, &listUsers, copier.Option{IgnoreEmpty: true})
-	return usersDtos, nil
 }

@@ -12,7 +12,7 @@ type SignupHandlerImpl struct {
 	s *services.SignupServiceImpl
 }
 
-func NewSignupHandler(s *services.SignupServiceImpl) *SignupHandlerImpl {
+func NewSignupHandlerImpl(s *services.SignupServiceImpl) *SignupHandlerImpl {
 	return &SignupHandlerImpl{s}
 }
 
