@@ -9,3 +9,7 @@ type Role struct {
 	CreatedAt   time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
+
+func (Role) TableName() string {
+	return "t_roles"
+}

@@ -27,7 +27,7 @@ func (s *SignupServiceImpl) RegisterNewUser(ctx context.Context, user *models.Us
 
 	_, err := s.r.FindUserByUsername(ctx, user.Username)
 	if err == nil {
-		return errors.New("User already exists with sanem username")
+		return errors.New("User already exists with same username")
 	}
 
 	_, err = s.r.FindUserByEmail(ctx, user.Email)

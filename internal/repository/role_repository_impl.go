@@ -17,3 +17,11 @@ func NewRoleRepositoryImpl(db *gorm.DB) *RoleRepositoryImpl {
 func (r *RoleRepositoryImpl) CreateNewRole(ctx context.Context, role *models.Role) error {
 	return r.db.WithContext(ctx).Create(&role).Error
 }
+
+func (r *RoleRepositoryImpl) FindRoleByName(ctx context.Context, nameRole string) (models.Role, error) {
+	var role models.Role
+	if err := r.db.WithContext(ctx).Where("name = ?", nameRole).First(&role).Error; err != nil {
+		return role, err
+	}
+	return role, nil
+}
