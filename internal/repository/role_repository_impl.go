@@ -27,7 +27,7 @@ func (r *RoleRepositoryImpl) FindRoleByName(ctx context.Context, nameRole string
 	return role, nil
 }
 
-func (r *UserRepositoryImpl) FindRoleById(ctx context.Context, roleId uint) (*models.Role, error) {
+func (r *RoleRepositoryImpl) FindRoleById(ctx context.Context, roleId uint) (*models.Role, error) {
 	var role models.Role
 	if err := r.db.WithContext(ctx).Where("RoleID = ?", roleId).First(&role).Error; err != nil {
 		return nil, errors.New("UserID not found.")

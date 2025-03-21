@@ -17,5 +17,13 @@ func NewUserRoleServiceImpl(r *repository.UserRoleRepositoryImpl) *UserRoleServi
 }
 
 func (s *UserRoleServiceImpl) CreateUserRole(ctx context.Context, userRole *models.UserRole) error {
+	_, err := s.rs.GetUserById(ctx, userRole.UserID)
+	if err != nil {
+		return err
+	}
+	_, err = s.rr.FindRoleById(ctx, userRole.RoleID)
+	if err != nil {
+		return err
+	}
 	return s.r.CreateUserRole(ctx, userRole)
 }
