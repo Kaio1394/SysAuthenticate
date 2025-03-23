@@ -12,8 +12,8 @@ type UserRoleServiceImpl struct {
 	rs *repository.UserRepositoryImpl
 }
 
-func NewUserRoleServiceImpl(r *repository.UserRoleRepositoryImpl) *UserRoleServiceImpl {
-	return &UserRoleServiceImpl{r: r}
+func NewUserRoleServiceImpl(r *repository.UserRoleRepositoryImpl, rr *repository.RoleRepositoryImpl, rs *repository.UserRepositoryImpl) *UserRoleServiceImpl {
+	return &UserRoleServiceImpl{r: r, rr: rr, rs: rs}
 }
 
 func (s *UserRoleServiceImpl) CreateUserRole(ctx context.Context, userRole *models.UserRole) error {

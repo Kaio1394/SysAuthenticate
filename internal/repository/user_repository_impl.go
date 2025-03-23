@@ -25,7 +25,7 @@ func (repo *UserRepositoryImpl) GetUsers(ctx context.Context) ([]models.User, er
 
 func (repo *UserRepositoryImpl) GetUserById(ctx context.Context, userId uint) (*models.User, error) {
 	var user models.User
-	if err := repo.db.WithContext(ctx).Where("UserID = ?", userId).First(&user).Error; err != nil {
+	if err := repo.db.WithContext(ctx).Where("id = ?", userId).First(&user).Error; err != nil {
 		return nil, errors.New("UserID not found.")
 	}
 

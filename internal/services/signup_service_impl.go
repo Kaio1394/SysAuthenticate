@@ -3,6 +3,7 @@ package services
 import (
 	"SysAuthenticate/internal/models"
 	"SysAuthenticate/internal/repository"
+	"SysAuthenticate/internal/utils"
 	"context"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
@@ -30,6 +31,9 @@ func (s *SignupServiceImpl) RegisterNewUser(ctx context.Context, user *models.Us
 		return errors.New("User already exists with same username")
 	}
 
+	if utils.IsValidEmail(user.Email) == false {
+		return errors.New("Invalid email!")
+	}
 	_, err = s.r.FindUserByEmail(ctx, user.Email)
 	if err == nil {
 		return errors.New("User already exists with same email")
