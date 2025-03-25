@@ -3,11 +3,10 @@ package services
 import (
 	"SysAuthenticate/internal/models"
 	"SysAuthenticate/internal/repository"
+	"SysAuthenticate/internal/utils"
 	"context"
 	"errors"
-	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
-	"time"
 )
 
 var jwtSecret = []byte("seu_segredo_super_secreto")
@@ -48,18 +47,7 @@ func (s *LoginServiceImpl) Signup(ctx context.Context, userLogin *models.UserLog
 		return "", err
 	}
 
-	userClaims := models.UserClaims{
-		UserID: user.Id,
-		Email:  user.Email,
-		Role:   role.Name,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			Issuer:    originType,
-		},
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, userClaims)
-	tokenString, err := token.SignedString(jwtSecret)
+	tokenString, err := utils.GenerateToken(&user, role.Name, originType)
 	if err != nil {
 		return "", err
 	}

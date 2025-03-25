@@ -20,6 +20,7 @@ func main() {
 	routes.RegisterRoleRoutes(serv, db)
 	routes.RegisterUserRoleRoutes(serv, db)
 	routes.RegisterLoginRoutes(serv, db)
+	routes.RegisterAuthRoutes(serv)
 
 	_ = serv.Run(":8080")
 }
