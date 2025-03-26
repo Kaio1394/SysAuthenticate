@@ -4,6 +4,7 @@ import (
 	"SysAuthenticate/internal/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
 type AuthHandlerImpl struct{}
@@ -14,12 +15,18 @@ func NewAuthHandlerImpl() *AuthHandlerImpl {
 
 func (h *AuthHandlerImpl) ValidateToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		tokenString := c.GetHeader("token")
-		if tokenString == "" {
+		authHeader := c.GetHeader("Authorization")
+		if authHeader == "" {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{})
 			return
 		}
-		claims, err := utils.ValidateJWT(tokenString)
+
+		if !strings.HasPrefix(authHeader, "Bearer ") {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Formato do token inválido"})
+			return
+		}
+		token := strings.TrimPrefix(authHeader, "Bearer ")
+		claims, err := utils.ValidateJWT(token)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{})
 			return
