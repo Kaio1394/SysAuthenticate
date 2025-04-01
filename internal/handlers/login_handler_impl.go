@@ -32,5 +32,9 @@ func (h *LoginHandlerImpl) Login(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"jwt_token": token})
+	c.JSON(http.StatusOK, gin.H{
+		"jwt_token":  token,
+		"username":   userLogin.Username,
+		"expires_in": 86400,
+	})
 }

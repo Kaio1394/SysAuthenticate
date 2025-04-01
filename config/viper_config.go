@@ -1,6 +1,7 @@
 package config
 
 import (
+	"SysAuthenticate/logger"
 	"github.com/spf13/viper"
 )
 
@@ -10,6 +11,7 @@ func ConfigSet() (Config, error) {
 	viper.AddConfigPath("config")
 
 	if err := viper.ReadInConfig(); err != nil {
+		logger.Log.Errorf("Error reading config file, %s", err)
 		return Config{}, err
 	}
 

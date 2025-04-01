@@ -16,7 +16,7 @@ func ValidateJWT(tokenString string) (*models.UserClaims, error) {
 	})
 
 	if err != nil || !token.Valid {
-		return nil, errors.New("token inválido")
+		return nil, errors.New("Invalid Token!")
 	}
 
 	return claims, nil

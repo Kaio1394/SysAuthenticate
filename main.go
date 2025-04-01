@@ -4,6 +4,7 @@ import (
 	"SysAuthenticate/config"
 	"SysAuthenticate/database"
 	"SysAuthenticate/internal/routes"
+	"SysAuthenticate/logger"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -12,6 +13,7 @@ import (
 // the <icon src="AllIcons.Actions.Execute"/> icon in the gutter and select the <b>Run</b> menu item from here.</p>
 
 func main() {
+	logger.Log.Infoln("Starting server...")
 	configs, err := config.ConfigSet()
 	if err != nil {
 		panic(err)
@@ -27,6 +29,5 @@ func main() {
 	routes.RegisterUserRoleRoutes(serv, db)
 	routes.RegisterLoginRoutes(serv, db)
 	routes.RegisterAuthRoutes(serv)
-
 	_ = serv.Run(":" + strconv.Itoa(configs.Server.Port))
 }
